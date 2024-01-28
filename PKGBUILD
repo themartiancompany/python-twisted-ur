@@ -1,7 +1,11 @@
+# SPDX-License-Identifier: AGPL-3.0
+#
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 # Contributor: Douglas Soares de Andrade <douglas@archlinux.org>
+# Maintainer: Truocolo <truocolo@aol.com>
+# Maintainer: Pellegrino Prevete (tallero) <pellegrinoprevete@gmail.com>
 
 pkgname=python-twisted
 pkgver=22.10.0
@@ -34,19 +38,42 @@ source=("https://github.com/twisted/twisted/archive/twisted-$pkgver.tar.gz")
 sha512sums=('cf9ed96430376d499ae9627a7d0656c05cb99bc9e9b15a8f4166355363818f090bc3c2b383ed4cf19e1e38fb569e8618d35a0ddde2a90a06f3c9a4ea769837e4')
 
 build() {
-  cd twisted-twisted-$pkgver
-  python setup.py build
+  cd \
+    twisted-twisted-$pkgver
+  python \
+    setup.py \
+      build
 }
 
 check() {
-  export LC_CTYPE=en_US.UTF-8
-
-  # tests use the underlying function from the 'python -m twisted.trial' module, to prevent loading system entry points
-  PYTHONPATH="$srcdir/twisted-twisted-$pkgver/build/lib" xvfb-run python -c 'from twisted.scripts.trial import run; run()' twisted || echo "Tests failed"
+  export \
+    LC_CTYPE=en_US.UTF-8
+  # tests use the underlying function from the
+  # 'python -m twisted.trial' module,
+  # to prevent loading system entry points
+  PYTHONPATH="$srcdir/twisted-twisted-$pkgver/build/lib" \
+    xvfb-run \
+      python \
+        -c \
+	  'from twisted.scripts.trial import run; run()' \
+	    twisted || \
+      echo \
+        "Tests failed"
 }
 
 package() {
   cd twisted-twisted-$pkgver
-  python setup.py install --prefix=/usr --root="$pkgdir" --optimize=1
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  python \
+    setup.py \
+      install \
+        --prefix=/usr \
+	--root="$pkgdir" \
+	--optimize=1
+  install \
+    -Dm644 \
+     LICENSE \
+     -t \
+     "$pkgdir"/usr/share/licenses/$pkgname/
 }
+
+# vim:set sw=2 sts=-1 et:
