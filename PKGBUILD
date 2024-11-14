@@ -61,6 +61,7 @@ optdepends=(
   'tk: for using tkconch'
 )
 checkdepends=(
+  'cairo'
   'subversion'
   'xorg-server-xvfb'
   'tk'
