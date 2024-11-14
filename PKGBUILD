@@ -25,7 +25,7 @@ pkgdesc="Asynchronous networking framework written in Python"
 arch=(
   'any'
 )
-url="https://${_pg}matrix.com/"
+url="https://${_pkg}matrix.com/"
 license=(
   'MIT'
 )
