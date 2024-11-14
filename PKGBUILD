@@ -42,6 +42,7 @@ depends=(
 )
 makedepends=(
   "${_py}-setuptools"
+  "${_py}-distutils"
 )
 optdepends=(
   "${_py}-pyopenssl: for TLS client hostname verification"
