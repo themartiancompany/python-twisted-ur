@@ -19,7 +19,7 @@ _pynextver="${_pymajver%.*}.$(( \
   ${_pyminver} + 1))"
 _pkg=twisted
 pkgname="${_py}-${_pkg}"
-pkgver=22.10.0
+pkgver=24.3.0
 pkgrel=3
 pkgdesc="Asynchronous networking framework written in Python"
 arch=(
@@ -32,17 +32,20 @@ license=(
 depends=(
   "${_py}>=${_pymajver}"
   "${_py}<${_pynextver}"
-  "${_py}-zope-interface"
+  "${_py}-attrs"
+  "${_py}-automat"
   "${_py}-constantly"
   "${_py}-incremental"
-  "${_py}-automat"
   "${_py}-hyperlink"
-  "${_py}-attrs"
   "${_py}-typing-extensions"
+  "${_py}-zope-interface"
 )
 makedepends=(
-  "${_py}-setuptools"
-  "${_py}-distutils"
+  "${_py}-build"
+  "${_py}-hatch-fancy-pypi-readme"
+  "${_py}-hatchling"
+  "${_py}-installer"
+  "${_py}-wheel"
 )
 optdepends=(
   "${_py}-pyopenssl: for TLS client hostname verification"
@@ -95,8 +98,10 @@ build() {
   cd \
     "${_pkg}-${_pkg}-${pkgver}"
   "${_py}" \
-    setup.py \
-      build
+    -m \
+      build \
+    --wheel \
+    --no-isolation
 }
 
 check() {
@@ -119,16 +124,15 @@ package() {
   cd \
     "${_pkg}-${_pkg}-${pkgver}"
   "${_py}" \
-    setup.py \
-      install \
-        --prefix=/usr \
-	--root "${pkgdir}" \
-	--optimize=1
+    -m \
+      installer \
+    --destdir="${pkgdir}" \
+    dist/*.whl
   install \
     -Dm644 \
-     LICENSE \
-     -t \
-     "${pkgdir}/usr/share/licenses/${pkgname}/"
+    LICENSE \
+    -t \
+    "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
 
 # vim:set sw=2 sts=-1 et:
