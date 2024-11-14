@@ -92,7 +92,7 @@ source=(
   "https://github.com/twisted/twisted/archive/twisted-$pkgver.tar.gz"
 )
 sha512sums=(
-  'cf9ed96430376d499ae9627a7d0656c05cb99bc9e9b15a8f4166355363818f090bc3c2b383ed4cf19e1e38fb569e8618d35a0ddde2a90a06f3c9a4ea769837e4'
+  'e6c787b8b7a01cb0e30569706f1ecc216eee92cb9d0414e92d9e7fc888a6ffa89516a1f585e0034b2756bcf3d7f9ffafb9d6c11952615da9555bbfaa7d7cfc83'
 )
 
 build() {
